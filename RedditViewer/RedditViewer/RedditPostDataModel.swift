@@ -15,6 +15,7 @@ struct Reddit: Decodable {
 
 struct Children: Decodable {
     var children: Array<Posts>
+    var after: String
 }
 
 struct Posts:Decodable {
@@ -52,4 +53,27 @@ class RedditPostDataModel {
             
     }.resume()
 }
+    
+    func getMorePosts(subreddit: String = "", after: String, successCompletion: @escaping (Reddit) -> ()) {
+        var url: URL
+        if subreddit == "" {
+            url = URL(string: "https://www.reddit.com/r/all/.json?limit=10&after=\(after)")!
+        } else {
+            guard let redditUrl = URL(string: "https://www.reddit.com/r/\(subreddit)/.json?limit=10&after=\(after)") else { return }
+            url = redditUrl
+        }
+        
+        session.dataTask(with: url) { (data, response, error) in
+            if let data = data {
+                do {
+                    let results = try JSONDecoder().decode(Reddit.self, from: data)
+                    successCompletion(results)
+                } catch {
+                    print("Error \(error)")
+                }
+            }
+            
+            }.resume()
+    }
+    
 }

@@ -14,7 +14,7 @@ class RedditViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     var redditPost = RedditPostDataModel()
     var redditPosts: [Posts]?
-    
+    var after: String?
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -38,11 +38,25 @@ class RedditViewController: UIViewController {
     func getRedditPosts(subreddit: String = "") {
         redditPost.getRedditPosts(subreddit: subreddit)  { (RedditData) in
              DispatchQueue.main.sync {
+                self.after = RedditData.data.after
                 self.redditPosts = [Posts](RedditData.data.children)
                 self.tableView.reloadData()
             }
         }
     }
+
+    func getMorePosts(subreddit: String = "", after: String) {
+        DispatchQueue.global(qos: .background).async {
+            self.redditPost.getMorePosts(subreddit: subreddit, after: after)  { (RedditData) in
+                DispatchQueue.main.sync {
+                    self.after = RedditData.data.after
+                    self.redditPosts =  self.redditPosts! + [Posts](RedditData.data.children)
+                    self.tableView.reloadData()
+                }
+            }
+        }
+    }
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let segueToPost = segue.destination as? RedditPostWebView {
@@ -68,6 +82,11 @@ extension RedditViewController: UITableViewDataSource {
         let myCell = tableView.dequeueReusableCell(withIdentifier: "redditPost", for: indexPath)
         myCell.textLabel?.text = redditPosts![indexPath.row].data.title
         myCell.detailTextLabel?.text = "Subreddit: \(redditPosts![indexPath.row].data.subreddit)"
+        
+        if indexPath.row == (self.redditPosts?.count)! - 1 {
+            self.getMorePosts(subreddit: searchBar.text!, after: self.after!)
+        }
+        
         return myCell
     }
 }
