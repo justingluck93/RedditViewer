@@ -43,6 +43,13 @@ class RedditViewController: UIViewController {
             }
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let segueToPost = segue.destination as? RedditPostWebView {
+            guard let urlString = redditPosts?[(tableView.indexPathForSelectedRow?.row)!].data.permalink else { return }
+            segueToPost.url = urlString
+        }
+    }
 }
 
 extension RedditViewController: UITableViewDelegate {

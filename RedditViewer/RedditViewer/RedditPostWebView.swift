@@ -12,10 +12,11 @@ import WebKit
 class RedditPostWebView: UIViewController {
     
     @IBOutlet weak var webView: WKWebView!
-    let url: String? = ""
+    var url: String?
     
     override func viewDidLoad() {
-        let request = URLRequest(url: URL(string: "https://www.google.com")!)
-        webView.load(request)
+        guard let urlString = url else { return }
+        let request = URLRequest(url: URL(string: "https://www.reddit.com\(urlString)")!)
+            webView.load(request)
     }
 }
