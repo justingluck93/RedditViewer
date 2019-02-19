@@ -26,6 +26,15 @@ class RedditViewController: UIViewController {
         getRedditPosts()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+
+    }
+    
     func getRedditPosts(subreddit: String = "") {
         redditPost.getRedditPosts(subreddit: subreddit)  { (RedditData) in
              DispatchQueue.main.sync {
@@ -38,9 +47,7 @@ class RedditViewController: UIViewController {
 
 extension RedditViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let postLink = redditPosts?[indexPath.row].data.permalink else { return }
-        guard let url = URL(string: "https://www.reddit.com\(postLink)") else { return }
-        UIApplication.shared.open(url)
+        performSegue(withIdentifier: "loadRedditPost", sender: self)
     }
 }
 

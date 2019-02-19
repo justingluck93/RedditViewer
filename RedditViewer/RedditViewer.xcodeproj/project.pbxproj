@@ -14,6 +14,7 @@
 		D0B1EBB3221C486F00FC2A80 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0B1EBB1221C486F00FC2A80 /* LaunchScreen.storyboard */; };
 		D0B1EBBE221C486F00FC2A80 /* RedditViewerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B1EBBD221C486F00FC2A80 /* RedditViewerTests.swift */; };
 		D0B1EBC9221C540D00FC2A80 /* RedditPostDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B1EBC8221C540D00FC2A80 /* RedditPostDataModel.swift */; };
+		D0B1EBCB221C876A00FC2A80 /* RedditPostWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B1EBCA221C876A00FC2A80 /* RedditPostWebView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +39,7 @@
 		D0B1EBBD221C486F00FC2A80 /* RedditViewerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedditViewerTests.swift; sourceTree = "<group>"; };
 		D0B1EBBF221C486F00FC2A80 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D0B1EBC8221C540D00FC2A80 /* RedditPostDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedditPostDataModel.swift; sourceTree = "<group>"; };
+		D0B1EBCA221C876A00FC2A80 /* RedditPostWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedditPostWebView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +88,7 @@
 				D0B1EBB1221C486F00FC2A80 /* LaunchScreen.storyboard */,
 				D0B1EBB4221C486F00FC2A80 /* Info.plist */,
 				D0B1EBAF221C486F00FC2A80 /* Assets.xcassets */,
+				D0B1EBCA221C876A00FC2A80 /* RedditPostWebView.swift */,
 			);
 			path = RedditViewer;
 			sourceTree = "<group>";
@@ -201,6 +204,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0B1EBC9221C540D00FC2A80 /* RedditPostDataModel.swift in Sources */,
+				D0B1EBCB221C876A00FC2A80 /* RedditPostWebView.swift in Sources */,
 				D0B1EBAB221C486D00FC2A80 /* RedditViewController.swift in Sources */,
 				D0B1EBA9221C486D00FC2A80 /* AppDelegate.swift in Sources */,
 			);
