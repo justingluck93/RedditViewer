@@ -10,25 +10,41 @@ import XCTest
 @testable import RedditViewer
 
 class RedditViewerTests: XCTestCase {
-
+    
+    var subject: MockRedditViewController?
+    
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        subject = MockRedditViewController()
     }
 
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testRedditViewControllerHasATableView() {
+        let redditViewer = UIStoryboard(name: "Main", bundle: Bundle(for: RedditViewController.self)).instantiateViewController(withIdentifier: "RedditViewController") as! RedditViewController
+        redditViewer.loadViewIfNeeded()
+        XCTAssertNotNil(redditViewer.tableView)
     }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    
+    func testRedditViewControllerHasASearchBar() {
+        let redditViewer = UIStoryboard(name: "Main", bundle: Bundle(for: RedditViewController.self)).instantiateViewController(withIdentifier: "RedditViewController") as! RedditViewController
+        redditViewer.loadViewIfNeeded()
+        XCTAssertNotNil(redditViewer.searchBar)
     }
+}
 
+class  MockRedditViewController: RedditViewController {
+    var getPostsWasCalled = false
+    
+    override func getRedditPosts(subreddit: String = "") {
+        getPostsWasCalled = true
+    }
+}
+
+class  MockRedditPostDataModel: RedditPostDataModel {
+    var getRedditPostsWasCalled = false
+    
+    override func getRedditPosts(subreddit: String, successCompletion: @escaping (Reddit) -> ()) {
+        getRedditPostsWasCalled = true
+    }
 }
