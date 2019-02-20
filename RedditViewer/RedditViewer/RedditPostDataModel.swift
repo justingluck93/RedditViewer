@@ -64,7 +64,7 @@ class RedditPostDataModel {
             if let error = error {
                 failureCompletionHandler(error)
             }
-            
+    
             if let data = data {
                 do {
                     let results = try JSONDecoder().decode(Reddit.self, from: data)
