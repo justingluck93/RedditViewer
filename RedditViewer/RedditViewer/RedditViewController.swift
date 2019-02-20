@@ -36,11 +36,15 @@ class RedditViewController: UIViewController {
     }
     
     func getRedditPosts(subreddit: String = "") {
-        redditPost.getRedditPosts(subreddit: subreddit)  { (RedditData) in
-             DispatchQueue.main.sync {
+        redditPost.getRedditPosts(subreddit: subreddit, successCompletion: { (RedditData) in
+            DispatchQueue.main.sync {
                 self.after = RedditData.data.after
                 self.redditPosts = [Posts](RedditData.data.children)
                 self.tableView.reloadData()
+            }
+        }) { (Error) in
+            DispatchQueue.main.sync {
+                self.showErrorAlert(err: Error)
             }
         }
     }
@@ -57,12 +61,33 @@ class RedditViewController: UIViewController {
         }
     }
     
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let segueToPost = segue.destination as? RedditPostWebView {
             guard let urlString = redditPosts?[(tableView.indexPathForSelectedRow?.row)!].data.permalink else { return }
             segueToPost.url = urlString
         }
+    }
+    
+    func showErrorAlert(err: Error) {
+        var title: String
+        var message: String
+        let myErr = err as NSError
+        
+        switch myErr.code {
+        case -1009:
+            title = "No Internet Connection"
+            message = "Please connect to the internet and try again"
+        default:
+            title = "Something went wrong"
+            message = "Check subreddit name and try again"
+        }
+        
+        let alert = UIAlertController(title: title , message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok" , style: .default, handler: { (UIAlertAction) in
+            self.getRedditPosts()
+        }))
+        
+        self.present(alert, animated: true)
     }
 }
 
@@ -95,6 +120,12 @@ extension RedditViewController: UISearchBarDelegate {
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         guard let searchText = searchBar.text else { return }
         getRedditPosts(subreddit: searchText)
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if(redditPosts?.count != 0) {
+            tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+        }
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {

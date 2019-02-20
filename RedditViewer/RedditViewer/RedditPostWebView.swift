@@ -2,7 +2,7 @@
 //  RedditPostWebView.swift
 //  RedditViewer
 //
-//  Created by JustinCaty<3 on 2/19/19.
+//  Created by Justin on 2/19/19.
 //  Copyright © 2019 Justin. All rights reserved.
 //
 
