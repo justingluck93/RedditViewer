@@ -51,7 +51,7 @@ class RedditPostDataModel {
         }.resume()
     }
     
-    func getMorePosts(subreddit: String = "", after: String, successCompletion: @escaping (Reddit) -> ()) {
+    func getMorePosts(subreddit: String = "", after: String, successCompletion: @escaping (Reddit) -> (), failureCompletionHandler: @escaping (Error) -> ()) {
         var url: URL
         if subreddit == "" {
             url = URL(string: "https://www.reddit.com/r/all/.json?limit=10&after=\(after)")!
@@ -61,12 +61,15 @@ class RedditPostDataModel {
         }
         
         session.dataTask(with: url) { (data, response, error) in
+            if let error = error {
+                failureCompletionHandler(error)
+            }
             if let data = data {
                 do {
                     let results = try JSONDecoder().decode(Reddit.self, from: data)
                     successCompletion(results)
                 } catch {
-                    print("Error \(error)")
+                    failureCompletionHandler(error)
                 }
             }
             

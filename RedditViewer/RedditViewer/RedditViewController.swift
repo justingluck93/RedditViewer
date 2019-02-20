@@ -51,13 +51,17 @@ class RedditViewController: UIViewController {
 
     func getMorePosts(subreddit: String = "", after: String) {
         DispatchQueue.global(qos: .background).async {
-            self.redditPost.getMorePosts(subreddit: subreddit, after: after)  { (RedditData) in
+            self.redditPost.getMorePosts(subreddit: subreddit, after: after, successCompletion: { (RedditData) in
                 DispatchQueue.main.sync {
                     self.after = RedditData.data.after
                     self.redditPosts =  self.redditPosts! + [Posts](RedditData.data.children)
                     self.tableView.reloadData()
                 }
-            }
+            }, failureCompletionHandler: { (Error) in
+                DispatchQueue.main.sync {
+                    self.showErrorAlert(err: Error)
+                }
+            })
         }
     }
     
