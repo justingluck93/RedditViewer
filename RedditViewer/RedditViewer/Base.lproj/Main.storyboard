@@ -92,17 +92,24 @@
                                     <wkPreferences key="preferences"/>
                                 </wkWebViewConfiguration>
                             </wkWebView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="JRx-yO-fVt">
+                                <rect key="frame" x="169" y="347" width="37" height="37"/>
+                                <color key="color" red="0.0030102210351597991" green="0.23268081942919805" blue="1" alpha="0.85999999999999999" colorSpace="custom" customColorSpace="displayP3"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="IFY-aA-DZ1" firstAttribute="top" secondItem="CpY-Yk-X0j" secondAttribute="top" id="2Cq-Jm-xhb"/>
+                            <constraint firstItem="JRx-yO-fVt" firstAttribute="centerX" secondItem="CpY-Yk-X0j" secondAttribute="centerX" id="DIL-Xh-2Jc"/>
                             <constraint firstItem="IFY-aA-DZ1" firstAttribute="bottom" secondItem="CpY-Yk-X0j" secondAttribute="bottom" id="S0Y-p3-5Hk"/>
                             <constraint firstItem="IFY-aA-DZ1" firstAttribute="leading" secondItem="CpY-Yk-X0j" secondAttribute="leading" id="XRx-ln-C7g"/>
                             <constraint firstItem="IFY-aA-DZ1" firstAttribute="trailing" secondItem="CpY-Yk-X0j" secondAttribute="trailing" id="gBk-6U-uIf"/>
+                            <constraint firstItem="JRx-yO-fVt" firstAttribute="centerY" secondItem="CpY-Yk-X0j" secondAttribute="centerY" id="txr-Ez-Bmh"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="CpY-Yk-X0j"/>
                     </view>
                     <connections>
+                        <outlet property="loadingView" destination="JRx-yO-fVt" id="JDV-8x-gts"/>
                         <outlet property="webView" destination="IFY-aA-DZ1" id="yRG-7G-xkB"/>
                     </connections>
                 </viewController>

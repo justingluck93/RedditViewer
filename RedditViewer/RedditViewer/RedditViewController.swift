@@ -15,6 +15,7 @@ class RedditViewController: UIViewController {
     var redditPost = RedditPostDataModel()
     var redditPosts: [Posts]?
     var after: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
